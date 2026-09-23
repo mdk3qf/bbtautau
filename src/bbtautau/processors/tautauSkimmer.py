@@ -823,6 +823,18 @@ class tautauSkimmer(SkimmerABC):
         # # >=1 AK8 jets with mSD >= 40 GeV
         # cut_mass = np.sum(ak8FatJetVars["ak8FatJetMsd"] >= 40, axis=1) >= 1
         # add_selection("ak8_mass", cut_mass, *selection_args)
+
+        # |delta phi| between subleading (2nd-highest pT) AK8 jet and MET
+        fatjets_padded = ak.pad_none(fatjets, 2, axis=1)
+        subleading_fatjet_dphi_met = ak.fill_none(
+            fatjets_padded[:, 1].delta_phi(met), PAD_VAL
+        ).to_numpy()
+        skimmed_events["ak8FatJetSubleadingMETdPhi"] = subleading_fatjet_dphi_met
+        cut_subleading_dphi_met = (subleading_fatjet_dphi_met != PAD_VAL) & (
+            np.abs(subleading_fatjet_dphi_met) < 0.5
+        )
+        add_selection("ak8_subleading_met_dphi", cut_subleading_dphi_met, *selection_args)
+
         # Veto leptons
         add_selection(
              "0lep",

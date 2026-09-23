@@ -42,7 +42,9 @@ gen_selection_dict = {
     #"HHto4B": GenSelection.gen_selection_HH4b,
     #"HHto2B2Tau": GenSelection.gen_selection_HHbbtautau,
     "DYto2Tau": GenSelection.gen_selection_Ztautau,
-    "DYto2L": GenSelection.gen_selection_Zll,
+    "DYto2L": GenSelection.gen_selection_Zll,  # inclusive dilepton (2022/2023)
+    "DYto2E": GenSelection.gen_selection_Zll,  # split ee/mumu naming (2024)
+    "DYto2Mu": GenSelection.gen_selection_Zll,
     # single-Higgs H->tautau production modes
     "To2TauUncorrelatedDecay": GenSelection.gen_selection_Htautau,
     "to2TauUncorrelatedDecay": GenSelection.gen_selection_Htautau,
